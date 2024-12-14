@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de Trabajadores</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f8ff;
+                color: #333;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+            }
+
+            h1 {
+                color: #0066cc;
+                text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+                font-size: 32px;
+            }
+
+            a {
+                color: #0066cc;
+                text-decoration: none;
+                font-size: 16px;
+                margin-bottom: 20px;
+                padding: 10px 20px;
+                background-color: #66cc66;
+                color: white;
+                border-radius: 5px;
+            }
+
+            a:hover {
+                background-color: #559955;
+            }
+
+            table {
+                width: 80%;
+                max-width: 1000px;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #66cc66;
+                color: white;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            tr:hover {
+                background-color: #ddd;
+            }
+
+            td a {
+                color: #0066cc;
+                text-decoration: none;
+            }
+
+            td a:hover {
+                color: #003366;
+            }
+        </style>
+    </head>
+    <body>
+
+        <h1>Lista de Trabajadores</h1>
+        <a href="/trabajadores/nuevo">Nuevo Trabajador</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Número de Documento</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Dirección</th>
+                    <th>Meses Trabajados</th>
+                    <th>Tipo Seguro</th>
+                    <th>Sueldos</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="trabajador : ${trabajadores}">
+                    <td th:text="${trabajador.id}"></td>
+                    <td th:text="${trabajador.nombre}"></td>
+                    <td th:text="${trabajador.apellido_paterno}"></td>
+                    <td th:text="${trabajador.apellido_materno}"></td>
+                    <td th:text="${trabajador.numero_documento}"></td>
+                    <td th:text="${trabajador.fecha_nacimiento}"></td>
+                    <td th:text="${trabajador.direccion}"></td>
+                    <td th:text="${trabajador.meses_trabajados}"></td>
+                    <td th:text="${trabajador.tipo_seguro}"></td>
+                    <td th:text="${trabajador.sueldo}"></td>
+                    <td>
+                        <div class="d-flex flex-column">
+                            <a th:href="@{/trabajadores/editar/{id}(id=${trabajador.id})}" class="btn btn-warning btn-sm mb-1">Editar</a>
+                            <a th:href="@{/trabajadores/eliminar/{id}(id=${trabajador.id})}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Estás seguro de eliminar este trabajador?');">Eliminar</a>
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+</html>

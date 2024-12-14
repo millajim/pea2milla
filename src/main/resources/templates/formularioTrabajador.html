@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${trabajador.id != null ? 'Editar Trabajador' : 'Agregar Nuevo Trabajador'}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #d63384; /* Color rosa suave */
+        }
+        .form-control {
+            border-radius: 5px;
+        }
+        .btn-primary {
+            background-color: #d63384; /* Color rosa suave */
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #c8237a; /* Color rosa más oscuro al pasar el mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4" th:text="${trabajador.id != null ? 'Editar Trabajador' : 'Agregar Nuevo Trabajador'}"></h1>
+        <form th:action="${trabajador.id != null ? '/trabajadores/editar/' + trabajador.id : '/trabajadores/nuevo'}" method="post">
+            <input type="hidden" th:value="${trabajador.id}" name="id"/>
+
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" id="nombre" name="nombre" th:value="${trabajador.nombre}" class="form-control" placeholder="Ingresa el nombre" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="apellidoPaterno" class="form-label">Apellido Paterno</label>
+                <input type="text" id="apellidoPaterno" name="apellido_paterno" th:value="${trabajador.apellido_paterno}" class="form-control" placeholder="Ingresa el apellido paterno" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="apellidoMaterno" class="form-label">Apellido Materno</label>
+                <input type="text" id="apellidoMaterno" name="apellido_materno" th:value="${trabajador.apellido_materno}" class="form-control" placeholder="Ingresa el apellido materno" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="numeroDocumento" class="form-label">Número de Documento</label>
+                <input type="text" id="numeroDocumento" name="numero_documento" th:value="${trabajador.numero_documento}" class="form-control" placeholder="Ingresa el número de documento" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                <input type="date" id="fechaNacimiento" name="fecha_nacimiento" th:value="${trabajador.fecha_nacimiento}" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="direccion" class="form-label">Dirección</label>
+                <input type="text" id="direccion" name="direccion" th:value="${trabajador.direccion}" class="form-control" placeholder="Ingresa la dirección" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="mesesTrabajados" class="form-label">Meses Trabajados</label>
+                <input type="number" id="mesesTrabajados" name="meses_trabajados" th:value="${trabajador.meses_trabajados}" class="form-control" placeholder="Ingresa los meses trabajados" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="tipoSeguro">Tipo Seguro:</label><br/>
+                <select id="tipoSeguro" name="tipo_seguro" class="form-select">
+                    <option value="" disabled ${trabajador.tipo_seguro == null ? 'selected' : ''}>Seleccione tipo seguro</option>  
+                    <option value="ESSALUD" ${'ESSALUD'.equals(trabajador.tipo_seguro) ? 'selected' : ''}>ESSALUD</option>  
+                    <option value="EPS" ${'EPS'.equals(trabajador.tipo_seguro) ? 'selected' : ''}>EPS</option>  
+                </select><br/>
+            </div>
+
+            <!-- Sueldo -->
+            <div class="mb-3">
+                <label for='sueldo' class='form-label'>Sueldo:</label><br/>
+                <input type='number' step='0.01' id='sueldo' name='sueldo' th:value='${trabajador.sueldo}' class='form-control' required/><br/>
+            </div>
+
+            <!-- Botón de guardar -->
+            <div class='text-center'>
+                <button type='submit' class='btn btn-primary'>Guardar Trabajador</button><br/>
+            </div>
+
+        </form>
+
+        <a href="/trabajadores">Volver a la lista de trabajadores</a>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
